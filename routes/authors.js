@@ -10,7 +10,8 @@ router.get('/', (req, res) => {
 
 // new router
 router.get('/new', (req, res) => {
-    res.render('authors/new', { author: new Author() })
+    res.render('authors/new', { author: new Author() }) 
+    
 });
 
 // create router
