@@ -1,2 +1,15 @@
 <!-- each route hasto be in a folder -->
-All authors
+<h2>Search authors</h2>
+<form action="/authors" method="get">
+    <label>Name</label>
+    <input type="text" name="name" value="<%= search %>">
+    <!-- search is passed from the parent - author.js in routes -->
+    <button type="submit">Search</button>
+</form>
+
+<br>
+<% authors.forEach(author=>{ %>
+    <div>
+        <%=author.name%>
+    </div>
+    <% });%>
