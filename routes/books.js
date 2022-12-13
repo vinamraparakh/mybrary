@@ -2,6 +2,7 @@
 // Searching the books by date, cover page, title etc 
 
 const express = require('express');
+const fs = require('fs');
 const router = express.Router();
 const Book = require('../models/book'); //Model to connect to the database
 const Author = require('../models/author');
@@ -67,6 +68,8 @@ router.post('/', upload.single('cover'), async (req, res) => {
         res.redirect(`books`);
     }
     catch {
+        if (book.coverImageName != null)
+            romoveBookCover(book.coverImageName);
         renderNewPage(res, book, true);
     }
 });
@@ -87,4 +90,13 @@ async function renderNewPage(res, book, hasError = false) {
         // res.redirect('/books');
     }
 }
+
+function removeBookCover(filename) {
+    // This function will remove the file from the folder
+    fs.unlink(path.join(uploadpath, filename), err => {
+        if (err) console.error(err);
+        // not for the user
+    });
+}
+
 module.exports = router;
