@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 
 const indexRouter = require('./routes/index');
 const authorRouter = require('./routes/authors');
+const bookRouter = require('./routes/books');
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -38,6 +39,7 @@ db.once('open', () => console.log('Connected to Mongoose'));
 // ROUTING THE FUNCTIONS
 app.use('/', indexRouter);
 app.use('/authors', authorRouter); // Add authors routes to middleware chain.
+app.use('/books', bookRouter);
 
 app.listen(process.env.PORT || 3000);
 console.log('Server is running http://localhost:3000'); 

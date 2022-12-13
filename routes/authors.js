@@ -7,7 +7,6 @@ const Author = require('../models/author');
 // All routers
 // get all authors
 router.get('/', async (req, res) => {
-
     let search = {};
     //get the search query from the URL - it is in the quesry of the url after the ? sign
     if (req.query.name != null && req.query.name !== '') {
@@ -54,7 +53,6 @@ router.get('/new', (req, res) => {
 
 // });
 
-
 // Instead of this we can use the code 
 router.post('/', async (req, res) => {
     // req.body will have the data from the form
@@ -72,7 +70,5 @@ router.post('/', async (req, res) => {
         });
     }
 });
-
-
 
 module.exports = router;
