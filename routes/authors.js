@@ -64,6 +64,7 @@ router.post('/', async (req, res) => {
         res.redirect(`authors`);
     } catch {
         res.render('authors/new', {
+            // renders the new page with the data that was entered and renders error page from partials folder
             author: author,
             errorMessage: 'Error creating Author'
         });
