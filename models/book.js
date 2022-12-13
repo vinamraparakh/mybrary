@@ -1,3 +1,4 @@
+// done
 const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema({
@@ -18,9 +19,18 @@ const bookSchema = new mongoose.Schema({
     },
     createdAt: {
         type: Date,
+        required: true,
+        default: Date.now
+    },
+    coverImageName: {
+        type: String,
+        required: true
+    },
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Author',
         required: true
     }
 });
-
 
 module.exports = mongoose.model('Book', bookSchema); // Export the model so it can be used in other files.

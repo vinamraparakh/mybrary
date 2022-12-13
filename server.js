@@ -20,18 +20,18 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: false })); // DOCUMENTATION
 
 // MONGOOSE CONNECTION
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/mybrary', {
-    useNewUrlParser: true,
-}).then(() => {
-    console.log('Connected to DB');
-}).catch(err => {
-    console.log('\t \t \t console has detected an ERROR:', err.message);
-});
-// mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true }); // use to connect to the database using the environment variable
-const db = mongoose.connection;
-db.on('error', error => console.error(error));
-db.once('open', () => console.log('Connected to Mongoose'));
+    const mongoose = require('mongoose');
+    mongoose.connect('mongodb://127.0.0.1:27017/mybrary', {
+        useNewUrlParser: true,
+    }).then(() => {
+        console.log('Connected to DB');
+    }).catch(err => {
+        console.log('\t \t \t console has detected an ERROR:', err.message);
+    });
+    // mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true }); // use to connect to the database using the environment variable
+    const db = mongoose.connection;
+    db.on('error', error => console.error(error));
+    db.once('open', () => console.log('Connected to Mongoose'));
 // END OF MONGOOSE CONNECTION
 // mongod does not have to be manually started
 
