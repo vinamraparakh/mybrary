@@ -1,8 +1,6 @@
 <h2>New Book</h2>
-<form action="/books" method="POST" enctype="multipart/form-data"> 
-    <!-- enctype="multipart/form-data" tells the server that files is being sent -->
-    <!-- posting to http://localhost:3000/books and not http://localhost:3000/books/new -->
-    <%- include('_form_fields.ejs') %>
-        <button type="submit">Create book</button>
-        <a href="/books">Cancel</a>
+<form action="/books" method="POST" enctype="multipart/form-data">
+  <%- include('_form_fields') %>
+  <a href="/books">Cancel</a>
+  <button type="submit">Create</button>
 </form>
