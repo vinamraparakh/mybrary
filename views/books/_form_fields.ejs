@@ -12,10 +12,10 @@
                 <% if(author.id===book.author){ %>
                     <option selected label="<%= author.name %>" value="<%= author.id %>">
                         <!-- label gets displayed in teh select drop down -->
-                        <% return; } %>
-                            <% else{ %>
+                        <% }else{ %>
                     <option label="<%= author.name %>" value="<%= author.id %>">
-                        <% }}); %>
+                        <% }%>
+                            <%}); %>
         </select>
     </label>
 </div>
@@ -41,7 +41,7 @@
 <div>
     <label>
         Description:
-        <textarea name="description" cols="30" rows="10">
+        <textarea name="description" rows="1">
             <%= book.description %>
         </textarea>
     </label>
