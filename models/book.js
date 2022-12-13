@@ -1,6 +1,8 @@
 // done
 const mongoose = require('mongoose');
 
+const coverImageBasePath = 'uploads/bookCovers'; // This is the folder where the files will be stored - PublicFolder path will be joined later
+
 const bookSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -34,3 +36,4 @@ const bookSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Book', bookSchema); // Export the model so it can be used in other files.
+module.exports.coverImageBasePath = coverImageBasePath;
