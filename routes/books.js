@@ -4,6 +4,7 @@
 const express = require('express');
 const router = express.Router();
 const Book = require('../models/book'); //Model to connect to the database
+const Author = require('../models/author');
 
 // all books route
 router.get('/', async (req, res) => {
@@ -11,11 +12,16 @@ router.get('/', async (req, res) => {
     res.send('All Books');
 });
 
-// new book route
-router.get('/new', (req, res) => {
-    res.send('New Book');    
+// add new book route
+router.get('/new', async (req, res) => {
+    try {
+        const authors = await Author.find({});
+        res.render('books/new', { authors: author, book: new Book() });
+    } catch {
+        res.redirect('/books');
+    }
 });
- 
+
 // create book route
 router.post('/', async (req, res) => {
     res.send('Create Book');

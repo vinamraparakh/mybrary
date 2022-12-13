@@ -1,0 +1,9 @@
+<h2>New Book</h2>
+<!-- // create forms -->
+
+<form action="/books" method="POST">
+    <!-- books is referencing to post method in routes\books.js -->
+    <%- include('_form_fields')%>
+        <button type="submit" class="btn btn-primary">Create book</button>
+        <a href="/books" class="btn btn-secondary">Cancel</a>
+</form>
