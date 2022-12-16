@@ -1,3 +1,5 @@
+console.log("fileupload.js loaded");
+
 FilePond.registerPlugin(
     FilePondPluginImagePreview,
     FilePondPluginImageResize,
@@ -7,9 +9,10 @@ FilePond.registerPlugin(
 
 FilePond.setOptions({
     stylePanelAspectRatio: 150 / 100,
-    imageResizeTargetWidth: 100,
-    imageResizeTargetHeight: 150
+    imageResizeTargetWidth: 50,
+    imageResizeTargetHeight: 75
 })
 
 FilePond.parse(document.body);
-  // parsing file inputs into filepond instances
+  // parsing file inputs into filepond object
+  // Read file encode documentation for more info
