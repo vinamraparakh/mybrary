@@ -17,19 +17,26 @@
 
     <!-- Path is from server.js -->
     <script defer src="/javascripts/fileUpload.js"></script>
-    
+
     <!-- defer is used to load files when the page is done loading -->
     <!-- The above script is used to upload the image file using filepond-plugin-file-encode -->
     <title>Mybrary</title>
 </head>
 
 <body>
+    <img id="dogpic" alt="Mybrary Logo" width="200" height="200">
     <%- include('../partials/header.ejs') %>
         <%- include('../partials/errorMessages.ejs') %>
             <%-body%>
                 <br>
                 <%- include('../partials/Footer.ejs') %>
-
+                    <script>
+                        // Async call to get a random dog image
+                        let dogpic = document.getElementById("dogpic")
+                        let dog = fetch("https://dog.ceo/api/breeds/image/random").then(response => response.json()).then(data => {
+                            dogpic.src = data.message;
+                        })
+                    </script>
 </body>
 
 </html>
