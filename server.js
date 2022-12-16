@@ -6,6 +6,7 @@ const express = require('express');
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
 const ejs = require('ejs');
+const override = require('method-override');
 const bodyParser = require('body-parser');
 
 const indexRouter = require('./routes/index');
@@ -15,23 +16,24 @@ const bookRouter = require('./routes/books');
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 app.set('layout', 'layouts/layout');
+app.use(override('_method')); //_method is the name of the query parameter that will be used to override the method put or delete
 app.use(expressLayouts);
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: false })); // DOCUMENTATION
 
 // MONGOOSE CONNECTION
-    const mongoose = require('mongoose');
-    mongoose.connect('mongodb://127.0.0.1:27017/mybrary', {
-        useNewUrlParser: true,
-    }).then(() => {
-        console.log('Connected to DB');
-    }).catch(err => {
-        console.log('\t \t \t console has detected an ERROR:', err.message);
-    });
-    // mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true }); // use to connect to the database using the environment variable
-    const db = mongoose.connection;
-    db.on('error', error => console.error(error));
-    db.once('open', () => console.log('Connected to Mongoose'));
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://127.0.0.1:27017/mybrary', {
+    useNewUrlParser: true,
+}).then(() => {
+    console.log('Connected to DB');
+}).catch(err => {
+    console.log('\t \t \t console has detected an ERROR:', err.message);
+});
+// mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true }); // use to connect to the database using the environment variable
+const db = mongoose.connection;
+db.on('error', error => console.error(error));
+db.once('open', () => console.log('Connected to Mongoose'));
 // END OF MONGOOSE CONNECTION
 // mongod does not have to be manually started
 

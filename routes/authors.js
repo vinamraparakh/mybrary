@@ -3,6 +3,7 @@ const router = express.Router();
 const ejs = require('ejs');
 
 const Author = require('../models/author');
+const Book = require('../models/book');
 
 // All routers
 // get all authors
@@ -60,14 +61,69 @@ router.post('/', async (req, res) => {
     });
     try {
         const newAuthor = await author.save();
-        // res.redirect(`authors/${newAuthor.id}`);
-        res.redirect(`authors`);
+        res.redirect(`authors/${newAuthor.id}`);
+        // res.redirect(`authors`);
     } catch {
         res.render('authors/new', {
             // renders the new page with the data that was entered and renders error page from partials folder
             author: author,
             errorMessage: 'Error creating Author'
         });
+    }
+});
+// for put and delete you need to install a library called method-override
+// EDIT AUTHOR ROUTE
+router.get('/:id', async (req, res) => {
+    try {
+        const author = await Author.findById(req.params.id);
+        const books = await Book.find({ author: req.params.id }).limit(6).exec();
+        res.render('authors/show', { author: author, booksByAuthor: books });
+    }
+    catch (err) {
+        console.log(err); // remove as it is not good practice to show errors to the user
+        res.redirect('/');
+    }
+});
+
+router.get('/:id/edit', async (req, res) => {
+    try {
+        const author = await Author.findById(req.params.id)
+        res.render('authors/edit', { author: author })
+    } catch {
+        res.redirect('/authors')
+    }
+})
+
+router.put('/:id', async (req, res) => {
+    let author
+    try {
+        author = await Author.findById(req.params.id)
+        author.name = req.body.name
+        await author.save()
+    } catch {
+        if (author == null) {
+            res.redirect('/')
+        } else {
+            res.render('authors/edit', {
+                author: author,
+                errorMessage: 'Error updating Author'
+            })
+        }
+    }
+})
+
+router.delete('/:id', async (req, res) => {
+    let author
+    try {
+        author = await Author.findById(req.params.id)
+        await author.remove()
+        res.redirect(`/authors`)
+    } catch {
+        if (author == null) {
+            res.redirect('/')
+        } else {
+            res.redirect(`/authors/${author.id}`)
+        }
     }
 });
 
