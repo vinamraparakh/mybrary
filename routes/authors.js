@@ -75,15 +75,16 @@ router.post('/', async (req, res) => {
 // EDIT AUTHOR ROUTE
 router.get('/:id', async (req, res) => {
     try {
-        const author = await Author.findById(req.params.id);
-        const books = await Book.find({ author: req.params.id }).limit(6).exec();
-        res.render('authors/show', { author: author, booksByAuthor: books });
+      const author = await Author.findById(req.params.id)
+      const books = await Book.find({ author: author.id }).limit(6).exec()
+      res.render('authors/show', {
+        author: author,
+        booksByAuthor: books
+      })
+    } catch {
+      res.redirect('/')
     }
-    catch (err) {
-        console.log(err); // remove as it is not good practice to show errors to the user
-        res.redirect('/');
-    }
-});
+  })
 
 router.get('/:id/edit', async (req, res) => {
     try {
@@ -100,6 +101,7 @@ router.put('/:id', async (req, res) => {
         author = await Author.findById(req.params.id)
         author.name = req.body.name
         await author.save()
+        res.redirect(`/authors/${author.id}`)
     } catch {
         if (author == null) {
             res.redirect('/')
@@ -117,7 +119,7 @@ router.delete('/:id', async (req, res) => {
     try {
         author = await Author.findById(req.params.id)
         await author.remove()
-        res.redirect(`/authors`)
+        res.redirect('/authors')
     } catch {
         if (author == null) {
             res.redirect('/')
@@ -125,6 +127,6 @@ router.delete('/:id', async (req, res) => {
             res.redirect(`/authors/${author.id}`)
         }
     }
-});
+})
 
 module.exports = router;
